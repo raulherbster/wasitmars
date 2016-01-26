@@ -1,13 +1,10 @@
 package com.example.herbster.howismars.ui;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +14,8 @@ import com.example.herbster.howismars.R;
 import com.example.herbster.howismars.communication.RequestResponse;
 import com.example.herbster.howismars.communication.ServiceRequest;
 import com.example.herbster.howismars.json.MarsJSONParser;
-import com.example.herbster.howismars.model.MarsArchive;
-import com.example.herbster.howismars.model.SingleMarsReport;
+import com.example.herbster.howismars.model.MarsWeatherArchive;
+import com.example.herbster.howismars.model.SingleMarsWeatherReport;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -29,11 +26,7 @@ import java.io.InputStream;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ItemFragment extends Fragment {
-
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
+public class MarsWeatherArchiveFragment extends Fragment {
 
     private OnListFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
@@ -44,13 +37,11 @@ public class ItemFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ItemFragment() {
+    public MarsWeatherArchiveFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static ItemFragment newInstance() {
-        ItemFragment fragment = new ItemFragment();
+    public static MarsWeatherArchiveFragment newInstance() {
+        MarsWeatherArchiveFragment fragment = new MarsWeatherArchiveFragment();
         return fragment;
     }
 
@@ -115,10 +106,8 @@ public class ItemFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(SingleMarsReport item);
+        void onListFragmentInteraction(SingleMarsWeatherReport item);
     }
-
 
     class FetchArchiveDataTask extends AsyncTask<String,Void,String> {
 
@@ -147,7 +136,7 @@ public class ItemFragment extends Fragment {
         }
     }
 
-    class ParseRemoteDataTask extends AsyncTask<InputStream,Void,MarsArchive> {
+    class ParseRemoteDataTask extends AsyncTask<InputStream,Void,MarsWeatherArchive> {
 
         @Override
         protected void onPreExecute() {
@@ -156,19 +145,17 @@ public class ItemFragment extends Fragment {
         }
 
         @Override
-        protected MarsArchive doInBackground(InputStream... params) {
+        protected MarsWeatherArchive doInBackground(InputStream... params) {
             if (params == null || params.length == 0)
                 return null;
 
-            MarsArchive marsReport = MarsJSONParser.getInstance().parseArchiveResponse(params[0]);
-            int inea = marsReport.getNumberReports();
-            ServiceRequest request = ServiceRequest.create("oi");
+            MarsWeatherArchive marsReport = MarsJSONParser.getInstance().parseArchiveResponse(params[0]);
 
             return marsReport;
         }
 
         @Override
-        protected void onPostExecute(MarsArchive archive) {
+        protected void onPostExecute(MarsWeatherArchive archive) {
             if (mProgressDialog.isShowing()) {
                 mProgressDialog.dismiss();
             }
@@ -177,7 +164,7 @@ public class ItemFragment extends Fragment {
         }
     }
 
-    private void updateArchiveList(MarsArchive archive) {
-        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(archive.getAsList(), mListener));
+    private void updateArchiveList(MarsWeatherArchive archive) {
+        recyclerView.setAdapter(new MarsItemRecyclerViewAdapter(archive.getAsList(), mListener));
     }
 }

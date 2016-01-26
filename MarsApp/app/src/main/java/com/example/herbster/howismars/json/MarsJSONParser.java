@@ -1,14 +1,13 @@
 package com.example.herbster.howismars.json;
 
-import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.JsonToken;
 import android.util.Log;
 
 import com.example.herbster.howismars.communication.RequestResponse;
 import com.example.herbster.howismars.communication.ServiceRequest;
-import com.example.herbster.howismars.model.MarsArchive;
-import com.example.herbster.howismars.model.SingleMarsReport;
+import com.example.herbster.howismars.model.MarsWeatherArchive;
+import com.example.herbster.howismars.model.SingleMarsWeatherReport;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -19,12 +18,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 
 /**
+ * Parses the file fetched from Mars Weather service.
  * Created by herbster on 1/25/2016.
  */
 public class MarsJSONParser {
+
+    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
 
     public static final String TAG_TERRESTRIAL_DATE = "terrestrial_date";
     public static final String TAG_SOL = "sol";
@@ -55,19 +57,27 @@ public class MarsJSONParser {
 	
 	private boolean mMultiplePlagesMode = false;
 
-    private MarsArchive mCurrentMarsArchive = null;
+    private MarsWeatherArchive mCurrentMarsWeatherArchive = null;
 
     private MarsJSONParser() {
         mProviderNameList = new ArrayList<String>();
     }
 
+    /**
+     * Returns a singleton instance of this class.
+     */
     public synchronized static MarsJSONParser getInstance() {
         if (singleton == null)
             singleton = new MarsJSONParser();
         return singleton;
     }
 
-    public SingleMarsReport parseSingleReportResponse(InputStream in) {
+    /**
+     * Parse a single Mars weather report
+     * @param in the stream with the content of the request in JSON format
+     * @return a single report about Mars Weather; null, if there's any exception.
+     */
+    public SingleMarsWeatherReport parseSingleReportResponse(InputStream in) {
         if (in == null)
             return null;
 
@@ -88,17 +98,20 @@ public class MarsJSONParser {
         return null;
     }
 
-    public MarsArchive parseArchiveResponse(InputStream in) {
-        if (mCurrentMarsArchive == null)
-            mCurrentMarsArchive = new MarsArchive();
+    /**
+     * Parse a single Mars weather archive
+     * @param in the stream with the content of the request in JSON format
+     * @return a Mars Weather archive; null, if there's any exception.
+     */
+    public MarsWeatherArchive parseArchiveResponse(InputStream in) {
+        if (mCurrentMarsWeatherArchive == null)
+            mCurrentMarsWeatherArchive = new MarsWeatherArchive();
 
-        mCurrentMarsArchive.clean();
-        mCurrentMarsArchive = new MarsArchive();
-
-
+        mCurrentMarsWeatherArchive.clean();
+        mCurrentMarsWeatherArchive = new MarsWeatherArchive();
 
         parseArchiveResponseInner(in);
-        return mCurrentMarsArchive;
+        return mCurrentMarsWeatherArchive;
     }
 
 	public void parseArchiveResponseInner(InputStream in) {
@@ -131,8 +144,8 @@ public class MarsJSONParser {
         }
     }
 
-    private SingleMarsReport parseSingleReport(JsonReader reader) throws IOException {
-        SingleMarsReport report = new SingleMarsReport();
+    private SingleMarsWeatherReport parseSingleReport(JsonReader reader) throws IOException {
+        SingleMarsWeatherReport report = new SingleMarsWeatherReport();
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -180,12 +193,12 @@ public class MarsJSONParser {
 
 	
 	private void parseArrayReports(JsonReader reader) throws IOException {
-		if (mCurrentMarsArchive == null)
+		if (mCurrentMarsWeatherArchive == null)
             return;
 
         reader.beginArray();
         while (reader.hasNext()) {
-            mCurrentMarsArchive.addMarsReport(parseSingleReport(reader));
+            mCurrentMarsWeatherArchive.addMarsReport(parseSingleReport(reader));
         }
         reader.endArray();
 	}
@@ -213,9 +226,6 @@ public class MarsJSONParser {
         } else
             return reader.nextInt();
     }
-
-    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-    public static final String DATE_FORMAT = "yyyy-MM-dd";
 
     private Date dateFromString(String dateString, String formatString) {
         if (dateString == null)

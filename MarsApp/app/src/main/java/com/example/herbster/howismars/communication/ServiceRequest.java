@@ -60,6 +60,7 @@ public class ServiceRequest {
     }
 
     public RequestResponse doGet() {
+
         RequestResponse response = new RequestResponse();
         try {
             HttpURLConnection conn = (HttpURLConnection) mURL.openConnection();

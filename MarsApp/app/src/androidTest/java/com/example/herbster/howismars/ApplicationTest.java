@@ -3,8 +3,8 @@ package com.example.herbster.howismars;
 import android.test.InstrumentationTestCase;
 
 import com.example.herbster.howismars.json.MarsJSONParser;
-import com.example.herbster.howismars.model.MarsArchive;
-import com.example.herbster.howismars.model.SingleMarsReport;
+import com.example.herbster.howismars.model.MarsWeatherArchive;
+import com.example.herbster.howismars.model.SingleMarsWeatherReport;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -29,7 +29,7 @@ public class ApplicationTest extends InstrumentationTestCase {
 
     public void testParseArchive() {
         MarsJSONParser parser = MarsJSONParser.getInstance();
-        MarsArchive archive = null;
+        MarsWeatherArchive archive = null;
         try {
             archive = parser.parseArchiveResponse(getInstrumentation().getContext().getAssets().open(FILE_NAME_ARCHIVE));
             assertNotNull(archive);
@@ -42,11 +42,11 @@ public class ApplicationTest extends InstrumentationTestCase {
     public void testParseSingleReport() {
         MarsJSONParser parser = MarsJSONParser.getInstance();
 
-        SingleMarsReport report = parser.parseSingleReportResponse(null);
+        SingleMarsWeatherReport report = parser.parseSingleReportResponse(null);
         assertNull(report);
 
         try {
-            SingleMarsReport singleReport = (SingleMarsReport) parser.parseSingleReportResponse(getInstrumentation().getContext().getAssets().open(FILE_NAME_SINGLE_REPORT));
+            SingleMarsWeatherReport singleReport = (SingleMarsWeatherReport) parser.parseSingleReportResponse(getInstrumentation().getContext().getAssets().open(FILE_NAME_SINGLE_REPORT));
             assertEquals("2016-01-20",parseDateToString(singleReport.getTerrestrialDate(), MarsJSONParser.DATE_FORMAT));
             assertEquals(1229, singleReport.getSol().intValue());
             assertEquals(97.0,singleReport.getLs().doubleValue());

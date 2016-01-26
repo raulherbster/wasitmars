@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by herbster on 1/25/2016.
  */
-public class SingleMarsReport {
+public class SingleMarsWeatherReport {
 
     private Date mTerrestrialDate;
     private Integer mSol;
@@ -24,7 +24,7 @@ public class SingleMarsReport {
     private Date mSunrise;
     private Date mSunset;
 
-    public SingleMarsReport() {
+    public SingleMarsWeatherReport() {
 
     }
 
@@ -154,5 +154,15 @@ public class SingleMarsReport {
 
     public void setSunset(Date sunset) {
         this.mSunset = sunset;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null)
+            return false;
+        if (!(o instanceof SingleMarsWeatherReport))
+            return false;
+        SingleMarsWeatherReport report = (SingleMarsWeatherReport)o;
+        return this.getTerrestrialDate().equals(report.getTerrestrialDate());
     }
 }

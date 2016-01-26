@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.example.herbster.howismars.R;
 import com.example.herbster.howismars.json.MarsJSONParser;
-import com.example.herbster.howismars.model.SingleMarsReport;
-import com.example.herbster.howismars.ui.ItemFragment.OnListFragmentInteractionListener;
+import com.example.herbster.howismars.model.SingleMarsWeatherReport;
+import com.example.herbster.howismars.ui.MarsWeatherArchiveFragment.OnListFragmentInteractionListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,12 +17,12 @@ import java.util.List;
 
 /**
  */
-public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
+public class MarsItemRecyclerViewAdapter extends RecyclerView.Adapter<MarsItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<SingleMarsReport> mValues;
+    private final List<SingleMarsWeatherReport> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyItemRecyclerViewAdapter(List<SingleMarsReport> items, OnListFragmentInteractionListener listener) {
+    public MarsItemRecyclerViewAdapter(List<SingleMarsWeatherReport> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -35,6 +35,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     }
 
     private static String parseDateToString(Date dateOrig, String formatString) {
+        if (dateOrig == null)
+            return "";
         SimpleDateFormat dateformat = new SimpleDateFormat(formatString);
         return dateformat.format(dateOrig);
     }
@@ -42,15 +44,15 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(parseDateToString(mValues.get(position).getTerrestrialDate(), MarsJSONParser.DATE_FORMAT));
-        holder.mContentView.setText(mValues.get(position).getSeason());
+        String terrestrialDateString = parseDateToString(mValues.get(position).getTerrestrialDate(), MarsJSONParser.DATE_FORMAT);
+        holder.mTerrestrialDate.setText(terrestrialDateString);
+        String tempString = "Max: " + mValues.get(position).getMinTemp() + " C Min: " + mValues.get(position).getMaxTemp() + " C";
+        holder.mTemp.setText(tempString);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
             }
@@ -64,20 +66,20 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public SingleMarsReport mItem;
+        public final TextView mTerrestrialDate;
+        public final TextView mTemp;
+        public SingleMarsWeatherReport mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mTerrestrialDate = (TextView) view.findViewById(R.id.itemTerrestrialDate);
+            mTemp = (TextView) view.findViewById(R.id.itemTemp);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mTerrestrialDate.getText() + "'" ;
         }
     }
 }

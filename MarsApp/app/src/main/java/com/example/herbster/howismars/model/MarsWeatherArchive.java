@@ -7,27 +7,27 @@ import java.util.List;
 /**
  * Created by herbster on 1/25/2016.
  */
-public class MarsArchive {
+public class MarsWeatherArchive {
 
-    private List<SingleMarsReport> mReportsList;
+    private List<SingleMarsWeatherReport> mReportsList;
 
-    public MarsArchive() {
-        mReportsList = new ArrayList<SingleMarsReport>();
+    public MarsWeatherArchive() {
+        mReportsList = new ArrayList<SingleMarsWeatherReport>();
     }
 
-    public List<SingleMarsReport> getAsList() {
+    public List<SingleMarsWeatherReport> getAsList() {
         return mReportsList;
     }
 
-    public synchronized boolean addMarsReport(SingleMarsReport report) {
+    public synchronized boolean addMarsReport(SingleMarsWeatherReport report) {
         return mReportsList.add(report);
     }
 
-    public synchronized boolean removeMarsReport(SingleMarsReport report) {
+    public synchronized boolean removeMarsReport(SingleMarsWeatherReport report) {
         return mReportsList.remove(report);
     }
 
-    public Iterator<SingleMarsReport> iterator() {
+    public Iterator<SingleMarsWeatherReport> iterator() {
         return mReportsList.iterator();
     }
 
