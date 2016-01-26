@@ -1,0 +1,201 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.herbster.howismars.MainActivity$PlaceholderFragment">
+
+    <TextView
+        android:id="@+id/terrestrialDate"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/solLab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/terrestrialDate"
+        android:layout_marginTop="15dp"
+        android:text="Sol" />
+
+    <TextView
+        android:id="@+id/sol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/solLab"
+        android:paddingLeft="@dimen/text_margin"
+        android:layout_toRightOf="@id/solLab"/>
+
+    <TextView
+        android:id="@+id/lsLab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/solLab"
+        android:layout_marginTop="15dp"
+        android:text="Ls" />
+
+    <TextView
+        android:id="@+id/ls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/lsLab"
+        android:paddingLeft="@dimen/text_margin"
+        android:layout_toRightOf="@id/lsLab"/>
+
+    <TextView
+        android:id="@+id/minTempLab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/lsLab"
+        android:layout_marginTop="15dp"
+        android:text="Min Temp" />
+
+    <TextView
+        android:id="@+id/minTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/text_margin"
+        android:layout_alignBaseline="@id/minTempLab"
+        android:layout_toRightOf="@id/minTempLab"/>
+
+    <TextView
+        android:id="@+id/maxTempLab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/minTempLab"
+        android:layout_marginTop="15dp"
+        android:text="Max Temp" />
+
+    <TextView
+        android:id="@+id/maxTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/text_margin"
+        android:layout_alignBaseline="@id/maxTempLab"
+        android:layout_toRightOf="@id/maxTempLab"/>
+
+
+
+    <TextView
+        android:id="@+id/seasonLab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/maxTempLab"
+        android:text="Season" />
+
+    <TextView
+        android:id="@+id/season"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/text_margin"
+        android:layout_alignBaseline="@id/seasonLab"
+        android:layout_toRightOf="@id/seasonLab"/>
+
+    <TextView
+        android:id="@+id/sunsiseLab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/seasonLab"
+        android:layout_marginTop="15dp"
+        android:text="Sunrise" />
+
+    <TextView
+        android:id="@+id/sunsise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/text_margin"
+        android:layout_alignBaseline="@id/sunsiseLab"
+        android:layout_toRightOf="@id/sunsiseLab"/>
+
+    <TextView
+        android:id="@+id/sunseteLab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/sunsiseLab"
+        android:text="Sunset" />
+
+    <TextView
+        android:id="@+id/sunset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/text_margin"
+        android:layout_alignBaseline="@id/sunseteLab"
+        android:layout_toRightOf="@id/sunseteLab"/>
+
+    <TextView
+        android:id="@+id/pressLab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/sunseteLab"
+        android:layout_marginTop="15dp"
+        android:text="Pressure" />
+
+    <TextView
+        android:id="@+id/press"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/text_margin"
+        android:layout_alignBaseline="@id/pressLab"
+        android:layout_toRightOf="@id/pressLab"/>
+
+    <TextView
+        android:id="@+id/humLab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/pressLab"
+        android:layout_marginTop="15dp"
+        android:text="Humidity" />
+
+    <TextView
+        android:id="@+id/hum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/text_margin"
+        android:layout_alignBaseline="@id/humLab"
+        android:layout_toRightOf="@id/humLab"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/windLab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/humLab"
+        android:layout_marginTop="15dp"
+        android:text="Wind" />
+
+    <TextView
+        android:id="@+id/windSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/text_margin"
+        android:layout_alignBaseline="@id/windLab"
+        android:layout_toRightOf="@id/windLab"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/windDeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/windLab"
+        android:layout_toRightOf="@id/windSpeed"
+        android:layout_marginLeft="4dp"/>
+
+</RelativeLayout>
