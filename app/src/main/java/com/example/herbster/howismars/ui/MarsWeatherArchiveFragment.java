@@ -52,8 +52,9 @@ public class MarsWeatherArchiveFragment extends Fragment {
 
         // Set the adapter
         if (view instanceof RecyclerView) {
-            Context context = view.getContext();
             recyclerView = (RecyclerView) view;
+        } else {
+            recyclerView = (RecyclerView) view.findViewById(R.id.list_items_mars);
         }
         return view;
     }
