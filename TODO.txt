@@ -1,0 +1,3 @@
+* Download history in a smart way (fetching, etc.)
+* Fix the titlebar on the history tab
+* Improve the visual layout (very basic at the moment)
